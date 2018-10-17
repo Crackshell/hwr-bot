@@ -56,12 +56,15 @@ g_discord.on("message", (msg) => {
 
 		console.log("Command: \"" + word + "\" from " + msg.author.tag);
 
+		let localMentions = mentions;
+		resetMentions = true;
+
 		if (word == ".wiki" && parse.length - i >= 2) {
 			numCommands++;
 
 			//TODO: Escape query from ` chars (for bot-sent messages)
-			var query = parse[++i];
-			var url = g_config.wiki.url + "api.php?action=opensearch&limit=3&search=" + escape(query);
+			let query = parse[++i];
+			let url = g_config.wiki.url + "api.php?action=opensearch&limit=3&search=" + escape(query);
 
 			http.get(url, (res) => {
 				var data = "";
@@ -74,12 +77,10 @@ g_discord.on("message", (msg) => {
 
 					if (arrTitles.length == 0) {
 						msg.channel.send("I couldn't find anything for `" + query + "`, " + msg.author.toString() + ".. :(");
-						resetMentions = true;
 						return;
 					}
 
-					var ret = mentions + " ";
-					resetMentions = true;
+					var ret = localMentions + " ";
 					ret += "I found this for `" + query + "`!\n";
 					for (var j = 0; j < arrTitles.length; j++) {
 						if (j > 0) {
@@ -96,8 +97,7 @@ g_discord.on("message", (msg) => {
 		} else if (word == ".enablemods") {
 			numCommands++;
 
-			resetMentions = true;
-			msg.channel.send(mentions + " To enable mods, see this thread: <https://steamcommunity.com/app/677120/discussions/0/1734340257882962708/>");
+			msg.channel.send(localMentions + " To enable mods, see this thread: <https://steamcommunity.com/app/677120/discussions/0/1734340257882962708/>");
 		}
 	}
 });
