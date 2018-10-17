@@ -1,0 +1,5 @@
+[discord]
+token = "insert token here"
+
+[wiki]
+url = "http://wiki.heroesofhammerwatch.com/"
