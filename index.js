@@ -106,9 +106,11 @@ g_discord.on("error", (err) => {
 });
 g_discord.login(g_config.discord.token);
 
-process.on("SIGINT", function() {
-	g_discord.destroy().then(() => {
-		console.log("Bot disconnected");
-		process.exit();
-	});
-});
+var funcStop = function() {
+	console.log("Bot disconnecting");
+	g_discord.destroy();
+	process.exit();
+};
+
+process.on("SIGINT", funcStop);
+process.on("SIGTERM", funcStop);

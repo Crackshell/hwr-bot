@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^11.4.2",
-    "toml": "^2.3.3"
+    "discord.js": "^12.2.0",
+    "toml": "^3.0.0"
   },
   "devDependencies": {},
   "scripts": {
